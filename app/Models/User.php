@@ -17,10 +17,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    // protected $attributes = [
+    //     'role' => 'sat_intelkam',
+    // ];
+
+    protected $table = 'users';
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'username', 'password', 'role',
     ];
 
     /**
@@ -45,4 +50,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Mutator untuk hashing password
 }

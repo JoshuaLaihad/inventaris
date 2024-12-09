@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skck;
+use App\Models\Kesatuan;
 use Illuminate\Http\Request;
 
 class SkckReportController extends Controller
@@ -24,20 +25,56 @@ class SkckReportController extends Controller
     // Menampilkan data Broken
     public function broken()
     {
-        $skcks = Skck::byStatus('Broken')->with(['kesatuan', 'status'])->get();
+        $skcks = Skck::byStatus('Rusak')->with(['kesatuan', 'status'])->get();
         return view('skck.broken', compact('skcks'));
     }
 
     // Menampilkan laporan lengkap
-    public function report()
+    public function report(Request $request)
     {
-        $skcks = Skck::with(['kesatuan', 'status'])->get();
-
+        $kesatuan_id = $request->input('kesatuan_id');
+        $month = $request->input('month');
+    
+        // Query awal
+        $query = SKCK::query();
+    
+        // Terapkan filter berdasarkan kondisi
+        if ($kesatuan_id) {
+            $query->where('kesatuan_id', $kesatuan_id);
+        }
+    
+        if ($month) {
+            $query->whereMonth('tanggal', $month);
+        }
+    
+        // Ambil data untuk tabel
+        $skcks = $query->with(['kesatuan', 'status'])->get();
+    
+        // Hitung input, output, dan rusak sesuai dengan filter yang diterapkan
+        $filteredQuery = SKCK::query(); // Query baru untuk menghitung jumlah stok
+    
+        if ($kesatuan_id) {
+            $filteredQuery->where('kesatuan_id', $kesatuan_id);
+        }
+    
+        if ($month) {
+            $filteredQuery->whereMonth('tanggal', $month);
+        }
+    
+        // Hitung berdasarkan status
+        $input = $filteredQuery->clone()->where('status_id', 1)->sum('jumlah'); // Status 1: Input
+        $output = $filteredQuery->clone()->where('status_id', 2)->sum('jumlah'); // Status 2: Output
+        $rusak = $filteredQuery->clone()->where('status_id', 3)->sum('jumlah'); // Status 3: Rusak
+    
         // Hitung sisa stok
-        $sisaStok = Skck::byStatus('Input')->sum('jumlah') - 
-                    Skck::byStatus('Output')->sum('jumlah') - 
-                    Skck::byStatus('Rusak')->sum('jumlah');
-
-        return view('skck.report', compact('skcks', 'sisaStok'));
+        $sisaStok = $input - ($output + $rusak);
+    
+        return view('skck.report', [
+            'skcks' => $skcks,
+            'kesatuans' => Kesatuan::all(),
+            'sisaStok' => $sisaStok,
+        ]);
     }
+    
+
 }

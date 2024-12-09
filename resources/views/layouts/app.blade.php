@@ -1,79 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventaris SKCK</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Dashboard - Inventaris</title>
+
+    <!-- Favicons -->
+    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
     <style>
-        /* Custom theme styling */
         body {
-            background-color: #e9f7ef; /* Light green background */
+            position: relative;
+            margin: 0;
+            font-family: "Open Sans", sans-serif;
         }
-        .navbar {
-            background-color: #28a745; /* Green navbar */
+
+        /* Background blur menggunakan pseudo-element */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/img/news-3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            filter: blur(1px);
+            z-index: -1;
+            /* Letakkan di belakang konten */
         }
-        .navbar a {
-            color: white !important;
-        }
-        footer {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
+
+        /* Konten utama */
+        main {
+            position: relative;
+            z-index: 2;
+            /* Di atas pseudo-element */
+            background: rgba(255, 255, 255, 0.9);
+            /* Opsional: Tambahkan efek transparan */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            /* Efek bayangan untuk form */
+            height: 100vh;
         }
     </style>
+
 </head>
+
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Inventaris SKCK</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('status.index') }}">Status</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('kesatuan.index') }}">Kesatuan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('skck.index') }}">SKCK</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Data
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('skck.input') }}">Input</a></li>
-                            <li><a class="dropdown-item" href="{{ route('skck.output') }}">Output</a></li>
-                            <li><a class="dropdown-item" href="{{ route('skck.broken') }}">Broken</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('skck.report') }}">Laporan</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Header -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        @include('layouts.navbar')
+    </header>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar">
+        @include('layouts.sidebar')
+    </aside>
 
     <!-- Main Content -->
-    <main class="container my-5">
+    <main id="main" class="main">
         @yield('content')
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; {{ date('Y') }} Inventaris SKCK. All rights reserved.</p>
+    {{-- <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Inventaris</span></strong>. All Rights Reserved
         </div>
-    </footer>
+        <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </footer> --}}
+    <!-- Footer -->
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
+
 </html>

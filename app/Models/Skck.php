@@ -32,4 +32,5 @@ class Skck extends Model
             $query->where('nama_status', $statusName);
         });
     }
+    
 }
