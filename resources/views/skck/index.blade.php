@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1 class="mb-4">Data SKCK</h1>
+        <h1>Data SKCK</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Tabel</li>
@@ -20,7 +20,7 @@
                         <h5 class="card-title"><a href="{{ route('skck.create') }}" class="btn btn-primary mb-3">Tambah SKCK</a></h5>
                         <!-- Table with stripped rows -->
 
-                        <table class="table table-bordered">
+                        <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -40,7 +40,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->kesatuan->nama_kesatuan }}</td>
                                         <td>{{ $item->status->nama_status }}</td>
-                                        <td>{{ $item->tanggal }}</td>
+                                        <td>{{ $item->tanggal->format('Y-m-d') }}</td>
                                         <td>{{ $item->no_box }}</td>
                                         <td>{{ $item->no_reg }}</td>
                                         <td>{{ $item->jumlah }}</td>

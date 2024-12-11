@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h1 class="mb-4">Edit User</h1>
 
-    <form action="{{ route('users.update', $user->id) }}" method="POST">
+    <form action="{{ route('user.update', $user->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -46,7 +46,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Update User</button>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('user.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 @endsection

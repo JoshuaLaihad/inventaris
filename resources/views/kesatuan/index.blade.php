@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1 class="mb-4">Data Kesatuan</h1>
+        <h1>Data Kesatuan</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Tabel</li>
@@ -21,7 +21,7 @@
                                 Kesatuan</a></h5>
                         <!-- Table with stripped rows -->
 
-                        <table class="table table-bordered">
+                        <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>

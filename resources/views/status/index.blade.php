@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="pagetitle">
-    <h1 class="mb-4">Data Status</h1>
+    <h1">Data Status</h1>
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Tabel</li>
@@ -20,7 +20,7 @@
                     <h5 class="card-title"><a href="{{ route('status.create') }}" class="btn btn-primary mb-3">Tambah Status</a></h5>
                     <!-- Table with stripped rows -->
                     
-                    <table class="table table-bordered">
+                    <table class="table table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th>No</th>

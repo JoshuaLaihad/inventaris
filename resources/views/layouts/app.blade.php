@@ -84,20 +84,11 @@
         @yield('content')
     </main>
 
-    {{-- <footer id="footer" class="footer">
-        <div class="copyright">
-            &copy; Copyright <strong><span>Inventaris</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-    </footer> --}}
-    <!-- Footer -->
-
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    
 </body>
 
 </html>
