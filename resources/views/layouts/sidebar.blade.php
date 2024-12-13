@@ -6,37 +6,17 @@
             <span>Dashboard</span>
         </a>
     </li>
-
+    
     @auth
         @if (auth()->user()->role == 'ba_intelkam')
-            <li
-                class="nav-item {{ request()->routeIs('user.index') || request()->routeIs('kesatuan.index') ? 'active' : '' }}">
-                <a class="nav-link collapsed" data-bs-target="#master-data" data-bs-toggle="collapse" href="#">
-                    <i
-                        class="{{ request()->routeIs('user.index') || request()->routeIs('kesatuan.index') ? 'bi bi-menu-button-wide-fill' : 'bi bi-menu-button-wide' }}"></i>
-                    <span>Master Data</span>
-                    <i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="master-data"
-                    class="nav-content collapse {{ request()->routeIs('user.index') || request()->routeIs('kesatuan.index') ? 'show' : '' }}"
-                    data-bs-parent="#sidebar-nav">
-                    <li class="{{ request()->routeIs('user.index') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('user.index') }}">
-                            <i class="bi bi-grid"></i>
-                            <span>Users</span>
-                        </a>
-                    </li>
-                    <li class="{{ request()->routeIs('kesatuan.index') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('kesatuan.index') }}">
-                            <i class="bi bi-grid"></i>
-                            <span>Kesatuan</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+        <li class="nav-item {{ request()->routeIs('user.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('user.index') }}">
+                <i class="{{ request()->routeIs('user.index') ? 'bi bi-menu-button-wide-fill' : 'bi bi-menu-button-wide' }}"></i>
+                <span>User</span>
+            </a>
+        </li>
         @endif
     @endauth
-
 
     <li class="nav-item {{ request()->routeIs('skck.index') ? 'active' : '' }}">
         <a class="nav-link " href="{{ route('skck.index') }}">

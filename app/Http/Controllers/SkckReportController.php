@@ -10,21 +10,21 @@ class SkckReportController extends Controller
     // Menampilkan data Input
     public function input()
     {
-        $skcks = Skck::where('status', 'Input')->with('kesatuan')->get();
+        $skcks = Skck::where('status', 'Input')->get();
         return view('skck.input', compact('skcks'));
     }
 
     // Menampilkan data Output
     public function output()
     {
-        $skcks = Skck::where('status', 'Output')->with('kesatuan')->get();
+        $skcks = Skck::where('status', 'Output')->get();
         return view('skck.output', compact('skcks'));
     }
 
     // Menampilkan data Broken
     public function broken()
     {
-        $skcks = Skck::where('status', 'Rusak')->with('kesatuan')->get();
+        $skcks = Skck::where('status', 'Rusak')->get();
         return view('skck.broken', compact('skcks'));
     }
 
@@ -47,7 +47,7 @@ class SkckReportController extends Controller
         }
 
         // Ambil data untuk tabel dengan pagination
-        $skcks = $query->with('kesatuan')->paginate(10)->appends($request->query());
+        $skcks = $query->paginate(10)->appends($request->query());
 
         // Hitung jumlah berdasarkan status
         $input = $query->clone()->where('status', 'Input')->sum('jumlah');

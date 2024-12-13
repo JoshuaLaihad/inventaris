@@ -10,7 +10,7 @@ class CreateSkcksTable extends Migration
     {
         Schema::create('skcks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kesatuan_id')->constrained()->onDelete('cascade'); // Foreign key ke kesatuans
+            $table->string('kesatuan');
             $table->enum('status', ['input', 'output', 'rusak'])->default('input');
             $table->date('tanggal'); // Tanggal
             $table->string('no_box'); // Nomor Box

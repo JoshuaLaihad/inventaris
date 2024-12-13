@@ -38,7 +38,7 @@
                                 @foreach ($skck as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->kesatuan->nama_kesatuan }}</td>
+                                        <td>{{ $item->kesatuan }}</td>
                                         <td>{{ ucfirst($item->status) }}</td>
                                         <td>{{ $item->tanggal->format('Y-m-d') }}</td>
                                         <td>{{ $item->no_box }}</td>

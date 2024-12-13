@@ -9,7 +9,7 @@ class Skck extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['kesatuan_id', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan'];
+    protected $fillable = ['kesatuan', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan'];
 
     const STATUS_INPUT = 'input';
     const STATUS_OUTPUT = 'output';
@@ -18,11 +18,6 @@ class Skck extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
-
-    public function kesatuan()
-    {
-        return $this->belongsTo(Kesatuan::class);
-    }
 
     public static function getStatuses()
     {
