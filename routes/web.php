@@ -55,3 +55,4 @@ Route::prefix('skck')->name('skck.')->group(function () {
 });
 
 Route::get('/skck/report', [SkckReportController::class, 'report'])->name('skck.report');
+Route::get('/skck/report/export', [SkckReportController::class, 'exportToExcel'])->name('skck.export');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Skck;
 use Illuminate\Http\Request;
+use App\Exports\SkckExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SkckReportController extends Controller
 {
@@ -63,5 +65,29 @@ class SkckReportController extends Controller
             'selectedMonth' => $month,
             'selectedYear' => $year,
         ]);
+    }
+
+    public function exportToExcel(Request $request)
+    {
+        $month = $request->input('month');
+        $year = $request->input('year');
+
+        // Query dasar
+        $query = Skck::query();
+
+        // Filter berdasarkan bulan dan tahun jika ada
+        if ($month) {
+            $query->whereMonth('tanggal', $month);
+        }
+
+        if ($year) {
+            $query->whereYear('tanggal', $year);
+        }
+
+        // Nama file yang akan diunduh
+        $fileName = 'SKCK_Report_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
+
+        // Ekspor file Excel menggunakan SkckExport
+        return Excel::download(new SkckExport($query), $fileName);
     }
 }

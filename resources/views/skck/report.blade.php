@@ -79,13 +79,20 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <form action="{{ route('skck.export') }}" method="GET" class="d-inline">
+                            <input type="hidden" name="month" value="{{ request('month') }}">
+                            <input type="hidden" name="year" value="{{ request('year') }}">
+                            <button type="submit" class="btn btn-success">Export to Excel</button>
+                        </form>
                         <!-- End Table with stripped rows -->
                         <div class="d-flex justify-content-center">
                             {{ $skcks->links() }}
                         </div>
                     </div>
+                    
                 </div>
-
+                
+                
             </div>
         </div>
     </section>
