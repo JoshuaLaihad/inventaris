@@ -30,10 +30,10 @@
             </div>
 
             <div class="mb-3">
-                <label for="status_id" class="form-label">Status</label>
-                <select id="status_id" name="status_id" class="form-select">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-select" required>
                     @foreach ($status as $s)
-                        <option value="{{ $s->id }}">{{ $s->nama_status }}</option>
+                        <option value="{{ $s }}">{{ Str::ucfirst($s) }}</option>
                     @endforeach
                 </select>
             </div>

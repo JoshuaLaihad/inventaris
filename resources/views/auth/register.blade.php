@@ -121,7 +121,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-12">
-                                            <<label for="password" class="form-label">Password</label>
+                                            <label for="password" class="form-label">Password</label>
                                             <input type="password" name="password" class="form-control" id="password" required>
                                             @error('password')
                                                 <small class="text-danger">{{ $message }}</small>

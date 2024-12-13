@@ -29,17 +29,17 @@
         
                 {{-- Dropdown Status --}}
                 <div class="mb-3">
-                    <label for="status_id" class="form-label">Status</label>
-                    <select name="status_id" id="status_id" class="form-select">
+                    <label for="status" class="form-label">Status</label>
+                    <select name="status" id="status" class="form-select">
                         <option value="" disabled selected>Pilih Status</option>
-                        @foreach ($status as $item)
-                            <option value="{{ $item->id }}"
-                                {{ old('status_id', $skck->status_id) == $item->id ? 'selected' : '' }}>
-                                {{ $item->nama_status }}
+                        @foreach ($status as $s)
+                            <option value="{{ $s }}"
+                                {{ old('status', $skck->status) === $s ? 'selected' : '' }}>
+                                {{ ucfirst($s) }}
                             </option>
                         @endforeach
                     </select>
-                    @error('status_id')
+                    @error('status')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1">Halaman Laporan Data SKCK</h1>
+        <h1>Halaman Laporan Data SKCK</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">Tabel</li>
@@ -17,36 +17,34 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{ route('skck.report') }}" method="GET" class="mb-4">
-                            <div class="row g-2">
-                                <div class="col-md-4">
-                                    <label for="kesatuan_id" class="form-label">Kesatuan</label>
-                                    <select name="kesatuan_id" id="kesatuan_id" class="form-select">
-                                        <option value="">Semua Kesatuan</option>
-                                        @foreach ($kesatuans as $kesatuan)
-                                            <option value="{{ $kesatuan->id }}"
-                                                {{ request('kesatuan_id') == $kesatuan->id ? 'selected' : '' }}>
-                                                {{ $kesatuan->nama_kesatuan }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="month" class="form-label">Bulan</label>
-                                    <select name="month" id="month" class="form-select">
-                                        <option value="">Semua Bulan</option>
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i }}" {{ request('month') == $i ? 'selected' : '' }}>
-                                                {{ \Carbon\Carbon::createFromDate(null, $i, 1)->format('F') }}
-                                            </option>
-                                        @endfor
-                                    </select>
-                                </div>
-                                <div class="col-md-4 d-flex align-items-end">
-                                    <button type="submit" class="btn btn-primary w-100">Filter</button>
-                                </div>
+                        <form method="GET" action="{{ route('skck.report') }}" class="row g-3 mb-4">
+                            <div class="col-md-3">
+                                <label for="month" class="form-label">Bulan</label>
+                                <select id="month" name="month" class="form-select">
+                                    <option value="">-- Pilih Bulan --</option>
+                                    @foreach (range(1, 12) as $m)
+                                        <option value="{{ $m }}" {{ request('month') == $m ? 'selected' : '' }}>
+                                            {{ DateTime::createFromFormat('!m', $m)->format('F') }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="year" class="form-label">Tahun</label>
+                                <select id="year" name="year" class="form-select">
+                                    <option value="">-- Pilih Tahun --</option>
+                                    @foreach (range(date('Y') - 10, date('Y')) as $y) {{-- 10 tahun terakhir --}}
+                                        <option value="{{ $y }}" {{ request('year') == $y ? 'selected' : '' }}>
+                                            {{ $y }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <button type="submit" class="btn btn-primary">Filter</button>
                             </div>
                         </form>
+                        
                         <!-- Table with stripped rows -->
 
                         <table class="table table-bordered">
@@ -67,7 +65,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration + ($skcks->currentPage() - 1) * $skcks->perPage() }}</td>
                                         <td>{{ $item->kesatuan->nama_kesatuan }}</td>
-                                        <td>{{ $item->status->nama_status }}</td>
+                                        <td>{{ $item->status }}</td>
                                         <td>{{ $item->tanggal->format('Y-m-d') }}</td>
                                         <td>{{ $item->no_box }}</td>
                                         <td>{{ $item->no_reg }}</td>

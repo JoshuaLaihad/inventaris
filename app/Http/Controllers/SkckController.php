@@ -11,14 +11,14 @@ class SkckController extends Controller
 {
     public function index()
     {
-        $skck = Skck::with(['kesatuan', 'status'])->get();
+        $skck = Skck::with(['kesatuan'])->get();
         return view('skck.index', compact('skck'));
     }
 
     public function create()
     {
         $kesatuan = Kesatuan::all();
-        $status = Status::all();
+        $status = Skck::getStatuses();
         return view('skck.create', compact('kesatuan', 'status'));
     }
 
@@ -26,7 +26,7 @@ class SkckController extends Controller
     {
         $validated = $request->validate([
             'kesatuan_id' => 'required|exists:kesatuans,id',
-            'status_id' => 'required|exists:statuses,id',
+            'status' => 'required|in:input,output,rusak',
             'tanggal' => 'required|date',
             'no_box' => 'required|string|max:255',
             'no_reg' => 'required|string|max:255',
@@ -42,7 +42,7 @@ class SkckController extends Controller
     {
         $skck = Skck::findOrFail($id); // Ambil SKCK berdasarkan ID
         $kesatuan = Kesatuan::all(); // Ambil semua data Kesatuan untuk dropdown
-        $status = Status::all(); // Ambil semua data Status untuk dropdown
+        $status = Skck::getStatuses(); // Ambil semua data Status untuk dropdown
     
         // Kirim data ke view
         return view('skck.edit', compact('skck', 'kesatuan', 'status'));
@@ -53,7 +53,7 @@ class SkckController extends Controller
     {
         $validated = $request->validate([
             'kesatuan_id' => 'required|exists:kesatuans,id',
-            'status_id' => 'required|exists:statuses,id',
+            'status' => 'required|in:input,output,rusak',
             'tanggal' => 'required|date',
             'no_box' => 'required|string|max:255',
             'no_reg' => 'required|string|max:255',

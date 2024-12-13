@@ -39,7 +39,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->kesatuan->nama_kesatuan }}</td>
-                                        <td>{{ $item->status->nama_status }}</td>
+                                        <td>{{ ucfirst($item->status) }}</td>
                                         <td>{{ $item->tanggal->format('Y-m-d') }}</td>
                                         <td>{{ $item->no_box }}</td>
                                         <td>{{ $item->no_reg }}</td>

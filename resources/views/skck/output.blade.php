@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Data Input</h1>
+        <h1>Data Output</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Tabel</li>
-                <li class="breadcrumb-item active">Data Input</li>
+                <li class="breadcrumb-item active">Data Output</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -17,7 +17,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Input</h5>
+                        <h5 class="card-title">Data Output</h5>
                         <!-- Table with stripped rows -->
                         <table class="table table-bordered table-hover datatable">
                             <thead>
