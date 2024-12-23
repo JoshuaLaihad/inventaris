@@ -18,15 +18,18 @@ class AuthController extends Controller
     // Proses Registrasi
     public function register(Request $request)
     {
+        // Debug data yang diterima
+        // dd($request->all());
+
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'kesatuan' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users', // Email hanya string
             'password' => 'required|string|min:8', // Password minimal 8 karakter
         ]);
 
         // Simpan data ke database
         User::create([
-            'name' => $validated['name'],
+            'kesatuan' => $validated['kesatuan'],
             'username' => $validated['username'],
             'password' => Hash::make($validated['password']), // Hash password
         ]);

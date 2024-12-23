@@ -3,43 +3,107 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skck;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Exports\SkckExport;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SkckReportController extends Controller
 {
     // Menampilkan data Input
-    public function input()
+    public function input(Request $request)
     {
-        $skcks = Skck::where('status', 'Input')->get();
-        return view('skck.input', compact('skcks'));
+        $user = Auth::user();
+        $query = Skck::where('status', 'Input');
+
+        if ($user->role === 'Worker') {
+            // Worker hanya melihat data kesatuannya
+            $query->where('kesatuan_id', $user->id);
+            $kesatuanOptions = [];
+        } else {
+            // Admin/operator memiliki filter kesatuan
+            $kesatuanOptions = User::pluck('kesatuan', 'id');
+
+            if ($request->has('kesatuan_id') && $request->kesatuan_id) {
+                $query->where('kesatuan_id', $request->kesatuan_id);
+            }
+        }
+
+        $skcks = $query->with('kesatuan')->paginate(10);
+
+        return view('skck.input', compact('skcks', 'kesatuanOptions'));
     }
 
     // Menampilkan data Output
-    public function output()
+    public function output(Request $request)
     {
-        $skcks = Skck::where('status', 'Output')->get();
-        return view('skck.output', compact('skcks'));
+        $user = Auth::user();
+        $query = Skck::where('status', 'Output');
+
+        if ($user->role === 'Worker') {
+            // Worker hanya melihat data kesatuannya
+            $query->where('kesatuan_id', $user->id);
+            $kesatuanOptions = [];
+        } else {
+            // Admin/operator memiliki filter kesatuan
+            $kesatuanOptions = User::pluck('kesatuan', 'id');
+
+            if ($request->has('kesatuan_id') && $request->kesatuan_id) {
+                $query->where('kesatuan_id', $request->kesatuan_id);
+            }
+        }
+
+        $skcks = $query->with('kesatuan')->paginate(10);
+
+        return view('skck.output', compact('skcks', 'kesatuanOptions'));
     }
 
     // Menampilkan data Broken
-    public function broken()
+    public function broken(Request $request)
     {
-        $skcks = Skck::where('status', 'Rusak')->get();
-        return view('skck.broken', compact('skcks'));
+        $user = Auth::user();
+        $query = Skck::where('status', 'Rusak');
+
+        if ($user->role === 'Worker') {
+            // Worker hanya melihat data kesatuannya
+            $query->where('kesatuan_id', $user->id);
+            $kesatuanOptions = [];
+        } else {
+            // Admin/operator memiliki filter kesatuan
+            $kesatuanOptions = User::pluck('kesatuan', 'id');
+
+            if ($request->has('kesatuan_id') && $request->kesatuan_id) {
+                $query->where('kesatuan_id', $request->kesatuan_id);
+            }
+        }
+
+        $skcks = $query->with('kesatuan')->paginate(10);
+
+        return view('skck.broken', compact('skcks', 'kesatuanOptions'));
     }
 
     // Menampilkan laporan lengkap berdasarkan bulan
+    // Menampilkan laporan lengkap berdasarkan filter
     public function report(Request $request)
     {
-        $month = $request->input('month'); // Bulan yang dipilih
-        $year = $request->input('year');   // Tahun yang dipilih
+        $user = Auth::user();
+        $kesatuanOptions = $user->role === 'Worker' ? [] : User::pluck('kesatuan', 'id');
 
-        // Query awal
+        $month = $request->input('month');
+        $year = $request->input('year');
+        $kesatuanId = $request->input('kesatuan_id');
+
         $query = Skck::query();
 
-        // Terapkan filter berdasarkan bulan dan tahun
+        if ($user->role === 'Worker') {
+            $query->where('kesatuan_id', $user->id);
+        } else {
+            if ($kesatuanId) {
+                $query->where('kesatuan_id', $kesatuanId);
+            }
+        }
+
         if ($month) {
             $query->whereMonth('tanggal', $month);
         }
@@ -48,34 +112,33 @@ class SkckReportController extends Controller
             $query->whereYear('tanggal', $year);
         }
 
-        // Ambil data untuk tabel dengan pagination
-        $skcks = $query->paginate(10)->appends($request->query());
+        $skcks = $query->with('kesatuan')->paginate(10)->appends($request->query());
 
-        // Hitung jumlah berdasarkan status
         $input = $query->clone()->where('status', 'Input')->sum('jumlah');
         $output = $query->clone()->where('status', 'Output')->sum('jumlah');
         $rusak = $query->clone()->where('status', 'Rusak')->sum('jumlah');
-
-        // Hitung sisa stok
         $sisaStok = $input - ($output + $rusak);
 
-        return view('skck.report', [
-            'skcks' => $skcks,
-            'sisaStok' => $sisaStok,
-            'selectedMonth' => $month,
-            'selectedYear' => $year,
-        ]);
+        return view('skck.report', compact('skcks', 'sisaStok', 'kesatuanOptions', 'month', 'year', 'kesatuanId'));
     }
 
     public function exportToExcel(Request $request)
     {
         $month = $request->input('month');
         $year = $request->input('year');
+        $kesatuanId = $request->input('kesatuan_id');
+        $user = Auth::user();
 
-        // Query dasar
         $query = Skck::query();
 
-        // Filter berdasarkan bulan dan tahun jika ada
+        if ($user->role === 'Worker') {
+            $query->where('kesatuan_id', $user->id);
+        } else {
+            if ($kesatuanId) {
+                $query->where('kesatuan_id', $kesatuanId);
+            }
+        }
+
         if ($month) {
             $query->whereMonth('tanggal', $month);
         }
@@ -84,10 +147,8 @@ class SkckReportController extends Controller
             $query->whereYear('tanggal', $year);
         }
 
-        // Nama file yang akan diunduh
         $fileName = 'SKCK_Report_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
 
-        // Ekspor file Excel menggunakan SkckExport
         return Excel::download(new SkckExport($query), $fileName);
     }
 }

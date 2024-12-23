@@ -22,14 +22,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'kesatuan' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username',
             'password' => 'required|string|min:8', // Password wajib diisi
-            'role' => 'required|in:ba_intelkam,dit_intelkam,sat_intelkam',
+            'role' => 'required|in:Admin,Operator,Worker',
         ]);
 
         User::create([
-            'name' => $request->name,
+            'kesatuan' => $request->kesatuan,
             'username' => $request->username,
             'password' => Hash::make($request->password), // Hash password
             'role' => $request->role,
@@ -50,10 +50,10 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'kesatuan' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . $id,
             'password' => 'nullable|string|min:8', // Password opsional
-            'role' => 'required|in:ba_intelkam,dit_intelkam,sat_intelkam',
+            'role' => 'required|in:Admin,Operator,Worker',
         ]);
 
         $data = $request->only('name', 'username', 'role');
@@ -64,7 +64,6 @@ class UserController extends Controller
         }
 
         $user->update($data);
-
         return redirect()->route('user.index')->with('success', 'User updated successfully.');
     }
 

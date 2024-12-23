@@ -9,7 +9,7 @@ class Skck extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['kesatuan', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan'];
+    protected $fillable = ['kesatuan_id', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan'];
 
     const STATUS_INPUT = 'input';
     const STATUS_OUTPUT = 'output';
@@ -28,12 +28,14 @@ class Skck extends Model
         ];
     }
 
-    // Scope untuk memfilter berdasarkan status
-    // public function scopeByStatus($query, $statusName)
-    // {
-    //     return $query->whereHas('status', function ($query) use ($statusName) {
-    //         $query->where('nama_status', $statusName);
-    //     });
-    // }
-    
+    public function kesatuan()
+    {
+        return $this->belongsTo(User::class, 'kesatuan_id');
+    }
+
+    // Fungsi untuk mengambil daftar kesatuan dari tabel users
+    public static function getKesatuans()
+    {
+        return User::pluck('kesatuan', 'id'); // Ambil kesatuan dan id
+    }
 }

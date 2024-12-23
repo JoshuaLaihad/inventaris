@@ -20,7 +20,7 @@ class SkckExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        return $this->query->select('kesatuan', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan')->get();
+        return $this->query->select('kesatuan_id', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan')->get();
     }
 
     /**
@@ -29,7 +29,7 @@ class SkckExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'Kesatuan',
+            'Kesatuan_id',
             'Status',
             'Tanggal',
             'No Box',

@@ -105,10 +105,10 @@
                                     <form class="row g-3" action="{{ route('register') }}" method="POST">
                                         @csrf
                                         <div class="col-12">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" name="name" class="form-control" id="name"
-                                                value="{{ old('name') }}" required>
-                                            @error('name')
+                                            <label for="kesatuan" class="form-label">Kesatuan</label>
+                                            <input type="text" name="kesatuan" class="form-control" id="kesatuan"
+                                                value="{{ old('kesatuan') }}" required>
+                                            @error('kesatuan')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>

@@ -25,7 +25,7 @@ class User extends Authenticatable
     protected $table = 'users';
 
     protected $fillable = [
-        'name', 'username', 'password', 'role',
+        'kesatuan', 'username', 'password', 'role',
     ];
 
     /**
@@ -51,5 +51,8 @@ class User extends Authenticatable
         ];
     }
 
-    // Mutator untuk hashing password
+    public function skcks()
+    {
+        return $this->hasMany(Skck::class, 'kesatuan_id');
+    }
 }

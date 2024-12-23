@@ -8,7 +8,7 @@
     </li>
     
     @auth
-        @if (auth()->user()->role == 'ba_intelkam')
+        @if (auth()->user()->role == 'Admin')
         <li class="nav-item {{ request()->routeIs('user.index') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('user.index') }}">
                 <i class="{{ request()->routeIs('user.index') ? 'bi bi-menu-button-wide-fill' : 'bi bi-menu-button-wide' }}"></i>

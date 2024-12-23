@@ -11,12 +11,20 @@
                 @method('PUT')
         
                 <div class="mb-3">
-                    <label for="kesatuan" class="form-label">Kesatuan</label>
-                    <input type="text" id="kesatuan" name="kesatuan" class="form-control @error('kesatuan') is-invalid @enderror" value="{{ old('kesatuan', $skck->kesatuan) }}" required>
-                    @error('kesatuan')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                    <label for="kesatuan_id" class="form-label">Kesatuan</label>
+                    <select name="kesatuan_id" id="kesatuan_id" class="form-select">
+                        <option value="" disabled selected>Pilih Kesatuan</option>
+                        @foreach ($kesatuans as $id => $kesatuan)
+                            <option value="{{ $id }}" {{ old('kesatuan_id', $skck->kesatuan_id ?? '') == $id ? 'selected' : '' }}>
+                                {{ $kesatuan }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('kesatuan_id')
+                        <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                
         
                 <div class="mb-3">
                     <label for="status" class="form-label">Status</label>

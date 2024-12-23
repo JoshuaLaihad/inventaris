@@ -10,14 +10,16 @@ class CreateSkcksTable extends Migration
     {
         Schema::create('skcks', function (Blueprint $table) {
             $table->id();
-            $table->string('kesatuan');
-            $table->enum('status', ['input', 'output', 'rusak'])->default('input');
+            $table->unsignedBigInteger('kesatuan_id')->nullable();
+            $table->enum('status', ['Input', 'Output', 'Rusak'])->default('Input');
             $table->date('tanggal'); // Tanggal
             $table->string('no_box'); // Nomor Box
             $table->string('no_reg'); // Nomor Registrasi
             $table->integer('jumlah'); // Jumlah SKCK
             $table->text('keterangan')->nullable(); // Keterangan opsional
             $table->timestamps();
+
+            $table->foreign('kesatuan_id')->references('id')->on('users')->onDelete('set null');
         });
         
     }

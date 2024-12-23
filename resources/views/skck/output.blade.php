@@ -14,7 +14,7 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-
+                
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Output</h5>
@@ -35,7 +35,7 @@
                                 @foreach ($skcks as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->kesatuan }}</td>
+                                        <td>{{ $item->kesatuan->kesatuan }}</td>
                                         <td>{{ $item->tanggal->format('Y-m-d') }}</td>
                                         <td>{{ $item->no_box }}</td>
                                         <td>{{ $item->no_reg }}</td>

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('kesatuan')->nullable();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role', ['ba_intelkam', 'dit_intelkam', 'sat_intelkam'])->default('sat_intelkam');
+            $table->enum('role', ['Admin', 'Operator', 'Worker'])->default('Worker');
             $table->timestamps();
         });
 

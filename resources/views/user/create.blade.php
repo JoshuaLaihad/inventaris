@@ -8,9 +8,9 @@
         @csrf
 
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
-            @error('name')
+            <label for="kesatuan" class="form-label">Kesatuan</label>
+            <input type="text" name="kesatuan" id="kesatuan" class="form-control" value="{{ old('kesatuan') }}" required>
+            @error('kesatuan')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
@@ -34,9 +34,9 @@
         <div class="mb-3">
             <label for="role" class="form-label">Role</label>
             <select name="role" id="role" class="form-select" required>
-                <option value="ba_intelkam" {{ old('role') === 'ba_intelkam' ? 'selected' : '' }}>Ba Intelkam</option>
-                <option value="dit_intelkam" {{ old('role') === 'dit_intelkam' ? 'selected' : '' }}>Dit Intelkam</option>
-                <option value="sat_intelkam" {{ old('role') === 'sat_intelkam' ? 'selected' : '' }}>Sat Intelkam</option>
+                <option value="Admin" {{ old('role') === 'Admin' ? 'selected' : '' }}>Admin</option>
+                <option value="Operator" {{ old('role') === 'Operator' ? 'selected' : '' }}>Operator</option>
+                <option value="Worker" {{ old('role') === 'Worker' ? 'selected' : '' }}>Worker</option>
             </select>
             @error('role')
                 <small class="text-danger">{{ $message }}</small>

@@ -25,7 +25,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // User Management (restricted to Ba Intelkam only)
 Route::prefix('user')
     ->name('user.')
-    ->middleware(['auth', 'role:ba_intelkam']) // Pastikan 'auth' mendahului role jika otentikasi diperlukan
+    ->middleware(['auth', 'role:Admin']) // Pastikan 'auth' mendahului role jika otentikasi diperlukan
     ->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/create', [UserController::class, 'create'])->name('create');
