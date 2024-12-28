@@ -131,6 +131,7 @@ class SkckReportController extends Controller
 
         $query = Skck::query();
 
+        // Filter berdasarkan role user
         if ($user->role === 'Worker') {
             $query->where('kesatuan_id', $user->id);
         } else {
@@ -139,16 +140,26 @@ class SkckReportController extends Controller
             }
         }
 
+        // Filter bulan dan tahun
         if ($month) {
             $query->whereMonth('tanggal', $month);
         }
-
         if ($year) {
             $query->whereYear('tanggal', $year);
         }
 
-        $fileName = 'SKCK_Report_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
+        // Hitung sisa stok
+        $input = $query->clone()->where('status', 'Input')->sum('jumlah');
+        $output = $query->clone()->where('status', 'Output')->sum('jumlah');
+        $rusak = $query->clone()->where('status', 'Rusak')->sum('jumlah');
+        $sisaStok = $input - ($output + $rusak);
 
-        return Excel::download(new SkckExport($query), $fileName);
+        // Nama file
+        $fileName = 'SKCK_Stock_Report_' . now()->format('Y_m_d_H_i_s') . '.xlsx';
+
+        // Kirim sisa stok ke class export
+        $export = new SkckExport($query, $sisaStok);
+
+        return Excel::download($export, $fileName);
     }
 }

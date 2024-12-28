@@ -14,7 +14,24 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
-                
+                @if (Auth::user()->role === 'Admin' || Auth::user()->role === 'Operator')
+                    <form method="GET" action="{{ route('skck.output') }}" class="row g-3 mb-4">
+                        <div class="col-md-3">
+                            <label for="kesatuan_id" class="form-label">Kesatuan</label>
+                            <select id="kesatuan_id" name="kesatuan_id" class="form-select">
+                                <option value="">-- Semua Kesatuan --</option>
+                                @foreach ($kesatuanOptions as $id => $kesatuan)
+                                    <option value="{{ $id }}" {{ request('kesatuan_id') == $id ? 'selected' : '' }}>
+                                        {{ $kesatuan }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3 align-self-end">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </div>
+                    </form>
+                @endif
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Output</h5>
