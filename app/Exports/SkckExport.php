@@ -24,12 +24,25 @@ class SkckExport implements FromCollection, WithHeadings, WithStyles
      */
     public function collection()
     {
-        // Data utama dari query
-        $data = $this->query->select('kesatuan_id', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan')->get();
+        // Data utama dari query dengan kesatuan sebagai nama, bukan ID
+        $data = $this->query
+            ->with('kesatuan') // Pastikan relasi kesatuan di-load
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'kesatuan' => $item->kesatuan->kesatuan ?? 'N/A', // Nama kesatuan
+                    'status' => ucfirst($item->status),              // Capitalize status
+                    'tanggal' => $item->tanggal->format('Y-m-d'),    // Format tanggal
+                    'no_box' => $item->no_box,
+                    'no_reg' => $item->no_reg,
+                    'jumlah' => $item->jumlah,
+                    'keterangan' => $item->keterangan,
+                ];
+            });
 
         // Tambahkan sisa stok sebagai baris terakhir
         $data->push([
-            'kesatuan_id' => null,
+            'kesatuan' => null,
             'status' => 'Sisa Stok',
             'tanggal' => null,
             'no_box' => null,
@@ -91,4 +104,3 @@ class SkckExport implements FromCollection, WithHeadings, WithStyles
         return $sheet;
     }
 }
-
