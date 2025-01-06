@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Skck extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['kesatuan_id', 'status', 'tanggal', 'no_box', 'no_reg', 'jumlah', 'keterangan'];
 
-    const STATUS_INPUT = 'input';
-    const STATUS_OUTPUT = 'output';
-    const STATUS_RUSAK = 'rusak';
+    const STATUS_INPUT = 'Input';
+    const STATUS_OUTPUT = 'Output';
+    const STATUS_RUSAK = 'Rusak';
 
     protected $casts = [
         'tanggal' => 'date',
@@ -21,12 +21,9 @@ class Skck extends Model
 
     public static function getStatuses()
     {
-        return [
-            self::STATUS_INPUT,
-            self::STATUS_OUTPUT,
-            self::STATUS_RUSAK,
-        ];
+        return ['Input', 'Output', 'Rusak']; // Sesuai dengan nilai di database
     }
+
 
     public function kesatuan()
     {

@@ -32,7 +32,7 @@ class SkckReportController extends Controller
 
         $skcks = $query->with('kesatuan')->paginate(10);
 
-        return view('skck.input', compact('skcks', 'kesatuanOptions'));
+        return view('skckdetail.input', compact('skcks', 'kesatuanOptions'));
     }
 
     // Menampilkan data Output
@@ -56,7 +56,7 @@ class SkckReportController extends Controller
 
         $skcks = $query->with('kesatuan')->paginate(10);
 
-        return view('skck.output', compact('skcks', 'kesatuanOptions'));
+        return view('skckdetail.output', compact('skcks', 'kesatuanOptions'));
     }
 
     // Menampilkan data Broken
@@ -80,7 +80,7 @@ class SkckReportController extends Controller
 
         $skcks = $query->with('kesatuan')->paginate(10);
 
-        return view('skck.broken', compact('skcks', 'kesatuanOptions'));
+        return view('skckdetail.broken', compact('skcks', 'kesatuanOptions'));
     }
 
     // Menampilkan laporan lengkap berdasarkan bulan
@@ -119,7 +119,7 @@ class SkckReportController extends Controller
         $rusak = $query->clone()->where('status', 'Rusak')->sum('jumlah');
         $sisaStok = $input - ($output + $rusak);
 
-        return view('skck.report', compact('skcks', 'sisaStok', 'kesatuanOptions', 'month', 'year', 'kesatuanId'));
+        return view('skckdetail.report', compact('skcks', 'sisaStok', 'kesatuanOptions', 'month', 'year', 'kesatuanId'));
     }
 
     public function exportToExcel(Request $request)

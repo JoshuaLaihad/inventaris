@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Data Input</h1>
+        <h1>Halaman Data Masuk</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Tabel</li>
-                <li class="breadcrumb-item active">Data Input</li>
+                <li class="breadcrumb-item active">Data Masuk</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-lg-12">
                 @if (Auth::user()->role === 'Admin' || Auth::user()->role === 'Operator')
-                    <form method="GET" action="{{ route('skck.input') }}" class="row g-3 mb-4">
+                    <form method="GET" action="{{ route('skckdetail.input') }}" class="row g-3 mb-4">
                         <div class="col-md-3">
                             <label for="kesatuan_id" class="form-label">Kesatuan</label>
                             <select id="kesatuan_id" name="kesatuan_id" class="form-select">

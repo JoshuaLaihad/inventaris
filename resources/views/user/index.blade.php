@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Data User</h1>
+        <h1>Data Pengguna</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Tabel</li>
-                <li class="breadcrumb-item active">Data User</li>
+                <li class="breadcrumb-item active">Data Pengguna</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->

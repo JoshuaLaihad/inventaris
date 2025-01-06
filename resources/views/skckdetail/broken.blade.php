@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Data Output</h1>
+        <h1>Halaman Data Rusak</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Tabel</li>
-                <li class="breadcrumb-item active">Data Output</li>
+                <li class="breadcrumb-item active">Data Rusak</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-lg-12">
                 @if (Auth::user()->role === 'Admin' || Auth::user()->role === 'Operator')
-                    <form method="GET" action="{{ route('skck.output') }}" class="row g-3 mb-4">
+                    <form method="GET" action="{{ route('skckdetail.broken') }}" class="row g-3 mb-4">
                         <div class="col-md-3">
                             <label for="kesatuan_id" class="form-label">Kesatuan</label>
                             <select id="kesatuan_id" name="kesatuan_id" class="form-select">
@@ -34,7 +34,7 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Output</h5>
+                        <h5 class="card-title">Data Rusak</h5>
                         <!-- Table with stripped rows -->
                         <table class="table table-bordered table-hover datatable">
                             <thead>

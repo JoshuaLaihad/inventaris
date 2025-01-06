@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Dashboard - Inventaris</title>
+    <title>Inventaris SKCK</title>
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/skck.png') }}" rel="icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -29,14 +28,10 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
-    <style>
-        body {
-            position: relative;
-            margin: 0;
-            font-family: "Open Sans", sans-serif;
-        }
 
-        /* Background blur menggunakan pseudo-element */
+
+
+    <style>
         body::before {
             content: '';
             position: fixed;
@@ -44,27 +39,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('assets/img/news-3.jpg') no-repeat center center fixed;
-            background-size: cover;
-            filter: blur(1px);
-            z-index: -1;
-            /* Letakkan di belakang konten */
-        }
-
-        /* Konten utama */
-        main {
-            position: relative;
-            z-index: 2;
-            /* Di atas pseudo-element */
-            background: rgba(255, 255, 255, 0.9);
-            /* Opsional: Tambahkan efek transparan */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            /* Efek bayangan untuk form */
-            height: 100vh;
+            background: 
+                linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)), 
+                url('{{ asset('assets/img/skckbg.jpg') }}') no-repeat center center fixed !important;
+            background-size: cover !important;
+            z-index: -1 !important;
         }
     </style>
+    
 
 </head>
 
@@ -88,7 +70,7 @@
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    
+
 </body>
 
 </html>

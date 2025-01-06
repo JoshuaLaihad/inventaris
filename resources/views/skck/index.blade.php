@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Data SKCK</h1>
+        <h1>Halaman Data SKCK</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">Tabel</li>
@@ -10,6 +10,12 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
+
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <section class="section">
         <div class="row">

@@ -5,13 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+    <title>Login</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/skck.png') }}" rel="icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -33,13 +32,18 @@
 
     <!-- Custom CSS for Background -->
     <style>
-        body {
-            position: relative;
-            margin: 0;
-            font-family: "Open Sans", sans-serif;
+        
+
+        /* Perbesar logo */
+        .logoo img {
+            width: 150px;
+            /* Ganti ukuran sesuai kebutuhan, misalnya 100px */
+            height: auto;
+            /* Agar proporsi tetap terjaga */
         }
 
-        /* Background blur menggunakan pseudo-element */
+
+        /* Hilangkan blur dari background */
         body::before {
             content: '';
             position: fixed;
@@ -47,25 +51,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('assets/img/news-3.jpg') no-repeat center center fixed;
+            background: url('assets/img/skckbg.jpg') no-repeat center center fixed;
             background-size: cover;
-            filter: blur(1px);
+            /* Hapus filter blur */
             z-index: -1;
-            /* Letakkan di belakang konten */
+            /* Tetap pastikan berada di belakang konten */
         }
 
         /* Konten utama */
-        main {
-            position: relative;
-            z-index: 2;
-            /* Di atas pseudo-element */
-            background: rgba(255, 255, 255, 0.9);
-            /* Opsional: Tambahkan efek transparan */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            /* Efek bayangan untuk form */
+        /* Efek bayangan untuk form */
         }
+        
     </style>
 
 
@@ -89,9 +85,13 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
+                            <div class="d-flex justify-content-center">
+                                <a href="index.html" class="logoo d-flex align-items-center w-auto">
+                                    <img src="assets/img/skck1.png" alt="">
+                                </a>
+                            </div><!-- End Logo -->
                             <div class="d-flex justify-content-center py-4">
                                 <a href="index.html" class="logo d-flex align-items-center w-auto">
-                                    <img src="assets/img/logo.png" alt="">
                                     <span class="d-none d-lg-block">Inventaris SKCK</span>
                                 </a>
                             </div><!-- End Logo -->
@@ -119,7 +119,7 @@
                                     <form class="row g-3" action="{{ route('login') }}" method="POST">
                                         @csrf
                                         <div class="col-12">
-                                            <label for="username" class="form-label">Username (username)</label>
+                                            <label for="username" class="form-label">Username</label>
                                             <input type="text" name="username" class="form-control" id="username"
                                                 value="{{ old('username') }}" required>
                                             @error('username')
@@ -149,7 +149,7 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="small mb-0">Tidak punya akun? <a
-                                                    href="{{ route('register.form') }}">Create an account</a></p>
+                                                    href="{{ route('register.form') }}">Buat Akun</a></p>
                                         </div>
                                     </form>
 

@@ -18,9 +18,9 @@
         @endif
     @endauth
 
-    <li class="nav-item {{ request()->routeIs('skck.index') ? 'active' : '' }}">
+    <li class="nav-item {{ request()->routeIs('skck.index') || request()->routeIs('skck.create') || request()->routeIs('skck.edit') ? 'active' : '' }}">
         <a class="nav-link " href="{{ route('skck.index') }}">
-            <i class=" {{ request()->routeIs('skck.index') ? 'bi bi-archive-fill' : 'bi bi-archive' }}"></i>
+            <i class=" {{ request()->routeIs('skck.index') || request()->routeIs('skck.create') || request()->routeIs('skck.edit') ? 'bi bi-archive-fill' : 'bi bi-archive' }}"></i>
             <span>SKCK</span>
         </a>
     </li><!-- End SKCK Nav -->
@@ -36,20 +36,20 @@
         <ul id="data-skck"
             class="nav-content collapse {{ request()->routeIs('skck.input') || request()->routeIs('skck.output') || request()->routeIs('skck.broken') ? 'show' : '' }}"
             data-bs-parent="#sidebar-nav">
-            <li class="{{ request()->routeIs('skck.input') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('skck.input') }}">
+            <li class="{{ request()->routeIs('skckdetail.input') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('skckdetail.input') }}">
                     <i class="bi bi-grid"></i>
                     <span>Data Input</span>
                 </a>
             </li>
-            <li class="{{ request()->routeIs('skck.output') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('skck.output') }}">
+            <li class="{{ request()->routeIs('skckdetail.output') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('skckdetail.output') }}">
                     <i class="bi bi-grid"></i>
                     <span>Data Output</span>
                 </a>
             </li>
-            <li class="{{ request()->routeIs('skck.broken') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('skck.broken') }}">
+            <li class="{{ request()->routeIs('skckdetail.broken') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('skckdetail.broken') }}">
                     <i class="bi bi-grid"></i>
                     <span>Data Rusak</span>
                 </a>

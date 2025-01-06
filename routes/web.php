@@ -37,7 +37,7 @@ Route::prefix('user')
 
 
 // Route untuk laporan dan filter SKCK
-Route::prefix('skck')->name('skck.')->group(function () {
+Route::prefix('skckdetail')->name('skckdetail.')->group(function () {
     Route::get('/input', [SkckReportController::class, 'input'])->name('input');
     Route::get('/output', [SkckReportController::class, 'output'])->name('output');
     Route::get('/broken', [SkckReportController::class, 'broken'])->name('broken');

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h1 class="mb-4">Edit User</h1>
+    <h1 class="mb-4">Edit Data User</h1>
 
     <form action="{{ route('user.update', $user->id) }}" method="POST">
         @csrf
@@ -45,7 +45,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary">Update User</button>
+        <button type="submit" class="btn btn-primary">Edit User</button>
         <a href="{{ route('user.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
